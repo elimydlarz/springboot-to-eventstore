@@ -1,0 +1,8 @@
+# Java nonsense
+/build
+
+# Gradle nonsense
+/.gradle
+
+# IntelliJ nonsense
+/.idea
