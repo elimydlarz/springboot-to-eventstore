@@ -2,13 +2,11 @@ package com.example
 
 import com.google.gson.Gson
 import com.mashape.unirest.http.Unirest
-import com.mashape.unirest.http.exceptions.UnirestException
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.RequestMapping
 
 import javax.xml.bind.DatatypeConverter
 import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 import java.time.LocalTime
 
 
@@ -36,5 +34,4 @@ class HelloController {
         MessageDigest.getInstance('MD5').digest(input.getBytes('UTF-8'))
     )
   }
-
 }
