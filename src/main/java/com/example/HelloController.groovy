@@ -11,26 +11,30 @@ import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.time.LocalTime
 
+
 @RestController
 class HelloController {
 
   @RequestMapping("/")
-  def index() throws UnirestException, NoSuchAlgorithmException, UnsupportedEncodingException {
-    def eventJson = new Gson().toJson([
-        [time: LocalTime.now().toString()]
-    ])
+  index() throws UnirestException, NoSuchAlgorithmException, UnsupportedEncodingException {
+    def eventInput = [currentTime: LocalTime.now().toString()]
+    def eventOutput = Transformer.transform(eventInput)
+    def eventJson = new Gson().toJson([eventOutput])
 
     def response = Unirest.post('http://127.0.0.1:2113/streams/newstream')
         .header('content-type', 'application/json')
         .header('es-eventtype', 'SomeEvent')
-        .header('ES-EventId', getHash(eventJson))
+        .header('ES-EventId', hash(eventJson))
         .body(eventJson)
         .asString()
 
-    String.valueOf(response.getStatus())
+    """
+      ${response.status}
+      ${response.headers}
+    """
   }
 
-  private def getHash(String input) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+  private hash(input) throws NoSuchAlgorithmException, UnsupportedEncodingException {
     DatatypeConverter.printHexBinary(
         MessageDigest.getInstance('MD5').digest(input.getBytes('UTF-8'))
     )
