@@ -16,25 +16,22 @@ import java.time.LocalTime
 class HelloController {
 
   @RequestMapping("/")
-  index() throws UnirestException, NoSuchAlgorithmException, UnsupportedEncodingException {
+  index() {
     def eventInput = [currentTime: LocalTime.now().toString()]
     def eventOutput = Transformer.transform(eventInput)
     def eventJson = new Gson().toJson([eventOutput])
 
-    def response = Unirest.post('http://127.0.0.1:2113/streams/newstream')
+    Unirest.post('http://127.0.0.1:2113/streams/newstream')
         .header('content-type', 'application/json')
         .header('es-eventtype', 'SomeEvent')
         .header('ES-EventId', hash(eventJson))
         .body(eventJson)
-        .asString()
+        .asStringAsync()
 
-    """
-      ${response.status}
-      ${response.headers}
-    """
+    "I'm on it!"
   }
 
-  private hash(input) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+  private hash(input) {
     DatatypeConverter.printHexBinary(
         MessageDigest.getInstance('MD5').digest(input.getBytes('UTF-8'))
     )

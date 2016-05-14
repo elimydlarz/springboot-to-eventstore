@@ -12,7 +12,7 @@ class Transformer {
       addTime
   ]
 
-  static transform(final input) {
+  static transform(input) {
     transforms.inject([:]) { output, transform -> transform.call(input, output) }
   }
 }
