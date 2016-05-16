@@ -16,7 +16,7 @@ class TransformerTests {
   @Test
   void addsTime() {
     def input = [currentTime: '14:52:57.276']
-    def output = Transformer.transform(input);
+    def output = Transformer.transform(input, Transforms.EVENT);
 
     assertEquals(input['currentTime'], output['time'])
   }
