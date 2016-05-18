@@ -9,7 +9,7 @@ class PollerTest {
   @Test
   void 'contract'() {
 
-    def someProvider = new PactBuilder() // Create a new PactBuilder
+    def someProvider = new PactBuilder()
 
     someProvider {
       serviceConsumer 'Engine'
