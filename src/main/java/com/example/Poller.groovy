@@ -10,14 +10,15 @@ class Poller {
 
   static poll(onSuccess) {
     Unirest.get('http://localhost:2113/streams/oldstream/3')
-    .header('Accept', 'application/json')
-    .asJsonAsync(new Callback<JsonNode> () {
-      void failed(UnirestException e) { System.out.println("The request has failed") }
-      void cancelled() { System.out.println('The request has been cancelled') }
+        .header('Accept', 'application/json')
+        .asJsonAsync(new Callback<JsonNode>() {
+          void failed(UnirestException e) { System.out.println("The request has failed") }
 
-      void completed(HttpResponse<JsonNode> response) {
-        onSuccess.call(response.getBody().getArray().get(0))
-      }
+          void cancelled() { System.out.println('The request has been cancelled') }
+
+          void completed(HttpResponse<JsonNode> response) {
+            onSuccess.call(response.getBody().getArray().get(0))
+          }
     })
   }
 }
