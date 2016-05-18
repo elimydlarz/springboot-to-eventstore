@@ -24,8 +24,8 @@ class PollerTest {
           headers: [Accept: 'application/json']
       )
       willRespondWith(
-        status: 200,
-        body: "[{\"currentTime\": \"14:52:57.276\"}]"
+          status: 200,
+          body: "[{\"currentTime\": \"14:52:57.276\"}]"
       )
     }
 
