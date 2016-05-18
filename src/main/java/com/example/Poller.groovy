@@ -18,6 +18,6 @@ class Poller {
       void completed(HttpResponse<JsonNode> response) {
         onSuccess.call(response.getBody().getArray().get(0))
       }
-    });
+    })
   }
 }
